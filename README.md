@@ -75,4 +75,45 @@
    ^C
    --- 192.168.1.2 ping statistics ---
    4 packets transmitted, 0 received, 100% packet loss, time 3072ms
+   ``` 
+4. Написать программу для DNS резолва (A/AAAA записи) через произвольный DNS сервер.
+   Сетевое взаимодействие организовать через RAW сокет (SOCK_RAW). Сформировать UDP пакет,
+   отправить и получить ответ.
+   ```sh
+   ./udp_raw_socket <local_ip> <dns server ip> <domain> <record type>
    ```
+   ```sh
+   ./udp_raw_socket 192.168.0.133 77.88.8.8 vk.com A
+   Using domain server:
+   Name: 77.88.8.8
+   Record type: A
+   
+   Creating socket...
+   Creating receive socket...
+   Sending Packet...
+   Receiving Packet...
+   Received 6 answer(s):
+   vk.com has address: 87.240.132.78
+   vk.com has address: 87.240.129.133
+   vk.com has address: 87.240.132.72
+   vk.com has address: 87.240.137.164
+   vk.com has address: 93.186.225.194
+   vk.com has address: 87.240.132.67
+   ```
+   ```sh
+   ./udp_raw_socket 192.168.0.133 77.88.8.8 google.com AAAA
+    Using domain server:
+    Name: 77.88.8.8
+    Record type: AAAA
+    
+    Creating socket...
+    Creating receive socket...
+    Sending Packet...
+    Receiving Packet...
+    Received 4 answer(s):
+    google.com has address: 2a00:1450:4010:c0e::71
+    google.com has address: 2a00:1450:4010:c0e::64
+    google.com has address: 2a00:1450:4010:c0e::66
+    google.com has address: 2a00:1450:4010:c0e::8b
+   ```
+   
